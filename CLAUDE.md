@@ -26,5 +26,5 @@ Focus on patterns tied to:
 
 ## Testing
 Run:
-- `pytest`
-- `python src/analyze_attrition.py`
+- `python -m pytest`
+- `python analyze_attrition.py`
