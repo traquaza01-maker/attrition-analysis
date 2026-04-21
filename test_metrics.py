@@ -1,33 +1,25 @@
 import pandas as pd
-
-REQUIRED_COLUMNS = [
-    "employee_id",
-    "department",
-    "age",
-    "monthly_income",
-    "job_satisfaction",
-    "overtime",
-    "travel_frequency",
-    "years_at_company",
-    "attrition",
-]
+from src.metrics import attrition_rate, attrition_by_department
 
 
-def load_employee_data(path: str) -> pd.DataFrame:
-    df = pd.read_csv(path)
-    return df
+def test_attrition_rate_returns_expected_percent():
+    df = pd.DataFrame(
+        {
+            "employee_id": [1, 2, 3, 4],
+            "department": ["Sales", "Sales", "HR", "HR"],
+            "attrition": ["Yes", "No", "No", "Yes"],
+        }
+    )
+    assert attrition_rate(df) == 50.0
 
 
-def clean_employee_data(df: pd.DataFrame) -> pd.DataFrame:
-    missing = [c for c in REQUIRED_COLUMNS if c not in df.columns]
-    if missing:
-        raise ValueError(f"Missing required columns: {missing}")
-
-    cleaned = df.copy()
-    cleaned["department"] = cleaned["department"].fillna("Unknown").str.strip()
-    cleaned["overtime"] = cleaned["overtime"].fillna("No").str.strip()
-    cleaned["travel_frequency"] = cleaned["travel_frequency"].fillna("Rarely").str.strip()
-    cleaned["attrition"] = cleaned["attrition"].astype(str).str.strip().str.title()
-    cleaned["job_satisfaction"] = cleaned["job_satisfaction"].fillna(3)
-    cleaned["monthly_income"] = cleaned["monthly_income"].fillna(cleaned["monthly_income"].median())
-    return cleaned
+def test_attrition_by_department_returns_expected_columns():
+    df = pd.DataFrame(
+        {
+            "employee_id": [1, 2, 3, 4],
+            "department": ["Sales", "Sales", "HR", "HR"],
+            "attrition": ["Yes", "No", "No", "Yes"],
+        }
+    )
+    result = attrition_by_department(df)
+    assert list(result.columns) == ["department", "employees", "leavers", "attrition_rate"]
