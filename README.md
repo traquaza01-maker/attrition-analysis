@@ -13,10 +13,10 @@ Use Python to analyze employee attrition and recommend actions for HR leaders.
 - Strengthen project documentation
 
 ## Files
-- `data/employees.csv` - employee dataset
-- `src/load_data.py` - data loading and cleaning helpers
-- `src/metrics.py` - analysis functions
-- `src/analyze_attrition.py` - main script
-- `tests/` - starter tests
+- `employees.csv` - employee dataset
+- `load_data.py` - data loading and cleaning helpers
+- `metrics.py` - analysis functions
+- `analyze_attrition.py` - main script
+- `test_metrics.py` - unit tests
 - `CLAUDE.md` - project guidance for Claude Code
 
